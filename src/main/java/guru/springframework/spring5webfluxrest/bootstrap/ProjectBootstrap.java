@@ -5,14 +5,13 @@ import guru.springframework.spring5webfluxrest.domain.Vendor;
 import guru.springframework.spring5webfluxrest.repository.CategoryRepository;
 import guru.springframework.spring5webfluxrest.repository.VendorRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ApplicationListener;
-import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Component
-public class ProjectBootstrap implements ApplicationListener<ContextRefreshedEvent> {
+public class ProjectBootstrap implements CommandLineRunner {
 
     private final CategoryRepository categoryRepository;
     private final VendorRepository vendorRepository;
@@ -24,7 +23,7 @@ public class ProjectBootstrap implements ApplicationListener<ContextRefreshedEve
 
     @Override
     @Transactional
-    public void onApplicationEvent(ContextRefreshedEvent event) {
+    public void run(String... args) throws Exception {
         if (!dataExists()) {
             initData();
         }
@@ -49,42 +48,31 @@ public class ProjectBootstrap implements ApplicationListener<ContextRefreshedEve
     }
 
     private void initCategories() {
-        Category cat1 = new Category();
-        cat1.setDescription("American");
-        categoryRepository.save(cat1).block();
+        categoryRepository.save(Category.builder().description("Fruits").build())
+                .block();
 
-        Category cat2 = new Category();
-        cat2.setDescription("Italian");
-        categoryRepository.save(cat2).block();
+        categoryRepository.save(Category.builder().description("Nuts").build())
+                .block();
+        categoryRepository.save(Category.builder().description("Breads").build())
+                .block();
 
-        Category cat3 = new Category();
-        cat3.setDescription("Mexican");
-        categoryRepository.save(cat3).block();
-
-        Category cat4 = new Category();
-        cat4.setDescription("Fast Food");
-        categoryRepository.save(cat4).block();
+        categoryRepository.save(Category.builder().description("Meats").build())
+                .block();
+        categoryRepository.save(Category.builder().description("Eggs").build())
+                .block();
     }
 
     private void initVendors() {
-        Vendor cat1 = new Vendor();
-        cat1.setFirstName("Evan");
-        cat1.setLastName("Wood");
-        vendorRepository.save(cat1).block();
+        vendorRepository.save(Vendor.builder().firstName("Joe").lastName("Buck").build()).block();
 
-        Vendor cat2 = new Vendor();
-        cat2.setFirstName("Thandie");
-        cat2.setLastName("Newton");
-        vendorRepository.save(cat2).block();
+        vendorRepository.save(Vendor.builder().firstName("Micheal").lastName("Weston").build()).block();
 
-        Vendor cat3 = new Vendor();
-        cat3.setFirstName("Jeffrey");
-        cat3.setLastName("Wright");
-        vendorRepository.save(cat3).block();
+        vendorRepository.save(Vendor.builder().firstName("Jessie").lastName("Waters").build()).block();
 
-        Vendor cat4 = new Vendor();
-        cat4.setFirstName("Ingrid");
-        cat4.setLastName("Berdal");
-        vendorRepository.save(cat4).block();
+        vendorRepository.save(Vendor.builder().firstName("Bill").lastName("Nershi").build()).block();
+
+        vendorRepository.save(Vendor.builder().firstName("Jimmy").lastName("Buffett").build()).block();
     }
+
+
 }
