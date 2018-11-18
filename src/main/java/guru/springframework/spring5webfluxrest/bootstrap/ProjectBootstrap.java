@@ -1,9 +1,9 @@
 package guru.springframework.spring5webfluxrest.bootstrap;
 
 import guru.springframework.spring5webfluxrest.domain.Category;
-import guru.springframework.spring5webfluxrest.domain.Vender;
+import guru.springframework.spring5webfluxrest.domain.Vendor;
 import guru.springframework.spring5webfluxrest.repository.CategoryRepository;
-import guru.springframework.spring5webfluxrest.repository.VenderRepository;
+import guru.springframework.spring5webfluxrest.repository.VendorRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -15,11 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class ProjectBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
     private final CategoryRepository categoryRepository;
-    private final VenderRepository venderRepository;
+    private final VendorRepository vendorRepository;
 
-    public ProjectBootstrap(CategoryRepository categoryRepository, VenderRepository venderRepository) {
+    public ProjectBootstrap(CategoryRepository categoryRepository, VendorRepository vendorRepository) {
         this.categoryRepository = categoryRepository;
-        this.venderRepository = venderRepository;
+        this.vendorRepository = vendorRepository;
     }
 
     @Override
@@ -34,8 +34,8 @@ public class ProjectBootstrap implements ApplicationListener<ContextRefreshedEve
 
         Long categoryCount = categoryRepository.count().block();
         log.info("Category Records: " + categoryCount);
-        Long venderCount = venderRepository.count().block();
-        log.info("Vender Records: " + venderCount);
+        Long vendorCount = vendorRepository.count().block();
+        log.info("Vendor Records: " + vendorCount);
         if (categoryCount > 0) {
             return true;
         } else {
@@ -45,7 +45,7 @@ public class ProjectBootstrap implements ApplicationListener<ContextRefreshedEve
 
     private void initData() {
         initCategories();
-        initVenders();
+        initVendors();
     }
 
     private void initCategories() {
@@ -66,25 +66,25 @@ public class ProjectBootstrap implements ApplicationListener<ContextRefreshedEve
         categoryRepository.save(cat4).block();
     }
 
-    private void initVenders() {
-        Vender cat1 = new Vender();
-        cat1.setFirstname("Evan");
-        cat1.setLastname("Wood");
-        venderRepository.save(cat1).block();
+    private void initVendors() {
+        Vendor cat1 = new Vendor();
+        cat1.setFirstName("Evan");
+        cat1.setLastName("Wood");
+        vendorRepository.save(cat1).block();
 
-        Vender cat2 = new Vender();
-        cat2.setFirstname("Thandie");
-        cat2.setLastname("Newton");
-        venderRepository.save(cat2).block();
+        Vendor cat2 = new Vendor();
+        cat2.setFirstName("Thandie");
+        cat2.setLastName("Newton");
+        vendorRepository.save(cat2).block();
 
-        Vender cat3 = new Vender();
-        cat3.setFirstname("Jeffrey");
-        cat3.setLastname("Wright");
-        venderRepository.save(cat3).block();
+        Vendor cat3 = new Vendor();
+        cat3.setFirstName("Jeffrey");
+        cat3.setLastName("Wright");
+        vendorRepository.save(cat3).block();
 
-        Vender cat4 = new Vender();
-        cat4.setFirstname("Ingrid");
-        cat4.setLastname("Berdal");
-        venderRepository.save(cat4).block();
+        Vendor cat4 = new Vendor();
+        cat4.setFirstName("Ingrid");
+        cat4.setLastName("Berdal");
+        vendorRepository.save(cat4).block();
     }
 }
