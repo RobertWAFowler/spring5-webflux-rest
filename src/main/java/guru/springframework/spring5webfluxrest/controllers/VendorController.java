@@ -53,12 +53,12 @@ public class VendorController {
 
         boolean isChanged = false;
         //This should be in the service layer
-        if(foundVendor.getFirstName() != vendor.getFirstName()) {
+        if(!foundVendor.getFirstName().equals(vendor.getFirstName())){
             foundVendor.setFirstName(vendor.getFirstName());
             isChanged = true;
         }
 
-        if(foundVendor.getLastName() != vendor.getLastName()) {
+        if(!foundVendor.getLastName().equals(vendor.getLastName())) {
             foundVendor.setLastName(vendor.getLastName());
             isChanged = true;
         }

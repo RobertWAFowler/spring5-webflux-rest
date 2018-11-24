@@ -54,7 +54,7 @@ public class CategoryController {
         Category foundCategory = categoryRepository.findById(id).block();
 
         //This should be in the service layer.
-        if(foundCategory.getDescription() != category.getDescription()) {
+        if(!foundCategory.getDescription().equals(category.getDescription())) {
             foundCategory.setDescription(category.getDescription());
             return categoryRepository.save(foundCategory);
         }
